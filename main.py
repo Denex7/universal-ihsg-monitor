@@ -5,7 +5,7 @@ import os
 def print_banner():
     print("=" * 60)
     print("📈 UNIVERSAL IHSG STOCK MONITOR & QUANTITATIVE TOOLKIT")
-    print("   Author: Dennis Sucipto (Koko) & Hermes Agent")
+    print("   Author: Developer & Hermes Agent")
     print("=" * 60)
 
 def main():

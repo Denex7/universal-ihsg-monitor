@@ -44,7 +44,7 @@ def generate_morning_briefing():
         if p:
             msg += f"• *{ticker}*: Rp {p:,.0f}\n"
             
-    msg += "\n💡 *Tips Pagi:* Selalu patuhi manajemen risiko (Half-Kelly) dan jangan FOMO! Semangat cuan hari ini desu~ (o˘◡˘o)✨"
+    msg += "\n💡 *Tips Pagi:* Selalu patuhi manajemen risiko (Half-Kelly) dan jangan FOMO! Semangat cuan hari ini!"
     
     send_telegram(msg)
     print("Morning briefing generated and sent successfully!")

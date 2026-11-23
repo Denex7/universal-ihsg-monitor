@@ -5,7 +5,7 @@ import os
 import json
 
 # Universal IHSG Stock & Telegram Alert Monitor with Watchlist JSON
-# Author: Dennis Sucipto (Koko) & Hermes Agent
+# Author: Developer & Hermes Agent
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', 'YOUR_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '217707756')

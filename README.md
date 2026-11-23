@@ -20,7 +20,7 @@ Sistem pemantauan harga saham universal untuk Bursa Efek Indonesia (IHSG / IDX) 
          └──> [Belum Tercapai] ──( Lanjut )──> [ Tunggu 15 Menit ]
                                                    │
                                                    ▼
-                                           [ Handphone Koko ]
+                                           [ Handphone User ]
                                       (Notifikasi Alarm Masuk 📱)
 ```
 
@@ -37,21 +37,21 @@ Sistem pemantauan harga saham universal untuk Bursa Efek Indonesia (IHSG / IDX) 
 
 ## 🕹️ Cara Penggunaan (All-in-One Master Menu)
 
-Koko memiliki dua cara fleksibel untuk menggunakan toolkit ini:
+User memiliki dua cara fleksibel untuk menggunakan toolkit ini:
 
 ### Cara 1: Menggunakan All-in-One Master Menu (Disarankan untuk Harian)
 Cukup jalankan satu perintah utama untuk mengakses semua fitur melalui menu interaktif:
 ```bash
 ./venv/bin/python3 main.py
 ```
-Di dalam menu utama ini, Koko bisa memilih:
+Di dalam menu utama ini, User bisa memilih:
 1. Analisis & Prediksi Saham (Predictor)
 2. Cek Portofolio & PnL Terkini (Portfolio)
 3. Kirim Morning Briefing Manual ke Telegram
 4. Jalankan Daemon Monitor Harga 24/7
 
 ### Cara 2: Menjalankan Script Modular (Untuk Automasi Background)
-Koko juga bisa menjalankan script terpisah sesuai kebutuhan:
+User juga bisa menjalankan script terpisah sesuai kebutuhan:
 * **Cek Portofolio:** `./venv/bin/python3 portfolio.py`
 * **Analisis Saham:** `./venv/bin/python3 predictor.py BBRI`
 * **Kirim Morning Briefing:** `./venv/bin/python3 morning_briefing.py`
