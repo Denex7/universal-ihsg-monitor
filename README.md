@@ -12,7 +12,8 @@ Sistem pemantauan harga saham universal untuk Bursa Efek Indonesia (IHSG / IDX) 
          ▼ (Fetch via Python / requests setiap 15 menit)
   [ Android STB Server ] (Menyala 24/7 di Rumah / Tailscale IP)
          │
-         ├──> Cek Kondisi Harga vs Target (Buy / Sell / Neutral)
+         ├──> monitor.py (Cek Kondisi Harga vs Target -> Push Telegram Alert)
+         └──> predictor.py (Analisis Teknikal: RSI, SMA20, & Simulasi Proyeksi 5 Hari)
          │
          ├──> [Kondisi Tercapai?] ──( Ya )──> [ Telegram Bot API ]
          │                                         │
@@ -27,6 +28,7 @@ Sistem pemantauan harga saham universal untuk Bursa Efek Indonesia (IHSG / IDX) 
 
 ## 🚀 Fitur Utama
 * **Universal 800+ Emiten IHSG:** Mendukung pemantauan seluruh emiten di Bursa Efek Indonesia berakhiran `.JK` (dapat dikustomisasi melalui file konfigurasi atau daftar emiten/CSV).
+* **Modul Prediksi & Analisis Teknikal (`predictor.py`):** Menghitung indikator **RSI (14)**, **SMA 20**, serta simulasi proyeksi harga 5 hari ke depan berdasarkan volatilitas historis.
 * **Mandiri & Anti Rate-Limit AI:** Berbasis Python murni tanpa bergantung pada LLM API Key (sehingga aman dari gangguan *rate limit* 429/503).
 * **24/7 STB Ready (Termux):** Sangat ringan, berjalan di perangkat STB Android rumahan berdaya rendah yang menyala 24/7.
 * **Push Alarm Telegram:** Langsung mengirimkan peringatan instan saat harga menyentuh area *Buy on Dip* atau *Take Profit*.
@@ -61,4 +63,4 @@ Ikuti langkah-langkah berikut untuk mendeploy sistem ini di STB Android (Termux)
 
 ## ⚙️ Kebutuhan Sistem
 * Python 3.8+
-* `requests` library (`pip install requests`)
+* `requests`, `pandas`, `numpy` (`pip install requests pandas numpy`)
