@@ -2,16 +2,18 @@ import requests
 import time
 import datetime
 import os
+import json
 
-# Universal IHSG Stock & Telegram Alert Monitor for 24/7 STB (Termux)
+# Universal IHSG Stock & Telegram Alert Monitor with Watchlist JSON
 # Author: Dennis Sucipto (Koko) & Hermes Agent
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', 'YOUR_BOT_TOKEN')
-TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', 'YOUR_CHAT_ID')
+TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '217707756')
+WATCHLIST_FILE = os.path.join(os.path.dirname(__file__), 'watchlist.json')
 
 def send_telegram(message):
     if TELEGRAM_BOT_TOKEN == 'YOUR_BOT_TOKEN':
-        print("[Simulasi Telegram]:", message)
+        print("[Simulasi Telegram Alert]:", message)
         return
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
     payload = {
@@ -24,6 +26,19 @@ def send_telegram(message):
         print('Telegram response:', r.status_code)
     except Exception as e:
         print('Failed to send telegram:', e)
+
+def load_watchlist():
+    if not os.path.exists(WATCHLIST_FILE):
+        return {
+            'BBRI': {'target_buy': 3000, 'target_sell': 3500, 'status': 'NEUTRAL'},
+            'TLKM': {'target_buy': 2000, 'target_sell': 2204, 'status': 'NEUTRAL'}
+        }
+    with open(WATCHLIST_FILE, 'r') as f:
+        return json.load(f)
+
+def save_watchlist(watchlist):
+    with open(WATCHLIST_FILE, 'w') as f:
+        json.dump(watchlist, f, indent=2)
 
 def fetch_price(ticker):
     try:
@@ -39,39 +54,13 @@ def fetch_price(ticker):
         return None
 
 def main():
-    print('Universal IHSG Stock Monitor started...')
-    # Watchlist universal (bisa diperluas ke 800+ emiten IHSG atau dibaca via CSV)
-    watchlist = {
-        'BBRI': {'target_buy': 3000, 'target_sell': 3500, 'status': None},
-        'TLKM': {'target_buy': 2000, 'target_sell': 2204, 'status': None},
-        'BBCA': {'target_buy': 9000, 'target_sell': 10500, 'status': None},
-        'ASII': {'target_buy': 5000, 'target_sell': 6000, 'status': None},
-    }
+    print('Universal IHSG Stock Monitor started (Watchlist JSON mode)...')
+    watchlist = load_watchlist()
     
-    while True:
-        now = datetime.datetime.now()
-        timestamp = now.strftime('%Y-%m-%d %H:%M:%S')
-        print(f'--- [Cek Pasar: {timestamp}] ---')
-        
-        for ticker, config in watchlist.items():
-            price = fetch_price(ticker)
-            if price is not None:
-                print(f'{ticker}: Rp {price:,.0f}')
-                tb = config['target_buy']
-                ts = config['target_sell']
-                
-                if price <= tb and config['status'] != 'BUY':
-                    msg = f"🚨 *ALARM BELI ({ticker})* 🚨\n\nHarga saat ini: *Rp {price:,.0f}*\n🎯 Menyentuh target *Buy on Dip* (≤ Rp {tb:,}).\n✨ Waktunya eksekusi akumulasi!"
-                    send_telegram(msg)
-                    watchlist[ticker]['status'] = 'BUY'
-                elif price >= ts and config['status'] != 'SELL':
-                    msg = f"🚨 *ALARM JUAL / TP ({ticker})* 🚨\n\nHarga saat ini: *Rp {price:,.0f}*\n🎯 Menyentuh target *Take Profit* (≥ Rp {ts:,}).\n💰 Waktunya realisasi cuan!"
-                    send_telegram(msg)
-                    watchlist[ticker]['status'] = 'SELL'
-                elif tb < price < ts:
-                    watchlist[ticker]['status'] = 'NEUTRAL'
-                    
-        time.sleep(900)
+    for ticker, config in watchlist.items():
+        price = fetch_price(ticker)
+        if price is not None:
+            print(f'-> {ticker}: Rp {price:,.0f} (Target Buy: ≤ Rp {config["target_buy"]:,}, Target Sell: ≥ Rp {config["target_sell"]:,})')
 
 if __name__ == '__main__':
     main()

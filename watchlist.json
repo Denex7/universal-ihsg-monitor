@@ -1,0 +1,22 @@
+{
+  "BBRI": {
+    "target_buy": 3000,
+    "target_sell": 3500,
+    "status": "NEUTRAL"
+  },
+  "TLKM": {
+    "target_buy": 2000,
+    "target_sell": 2204,
+    "status": "NEUTRAL"
+  },
+  "BBCA": {
+    "target_buy": 9000,
+    "target_sell": 10500,
+    "status": "NEUTRAL"
+  },
+  "ASII": {
+    "target_buy": 5000,
+    "target_sell": 6000,
+    "status": "NEUTRAL"
+  }
+}
