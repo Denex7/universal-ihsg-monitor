@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# ==============================================================================
+# Universal IHSG Stock Monitor & Quantitative Toolkit
+# Author: denex7 & Hermes Agent
+# License: MIT License
+# ==============================================================================
+
+#!/usr/bin/env python3
 import sys
 import os
 
